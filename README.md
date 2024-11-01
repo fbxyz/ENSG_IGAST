@@ -29,18 +29,18 @@ Objectifs spécifiques pour la section MAUP:
 
 ### Sémiologie et mise en page (3 heures)
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/refs/heads/master/M2IGAST_Carto.html)
-- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
+- [PDF](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2_IGAST_cours_carto.pdf)
 
 ### La discrétisation (3 heures)
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_discretisation.slides.html)
-- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
+- [PDF](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2_IGAST_cours_discretisation.pdf)
 
 ### MAUP (3 heures)
    - A venir
 
 ## Travaux Dirigés (TD) 
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_TD.html)
-- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
+- [PDF](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2_IGAST_TD.pdf)
       
 ### Données 
 A télécharger (download raw file)
