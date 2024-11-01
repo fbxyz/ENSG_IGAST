@@ -28,20 +28,24 @@ Objectifs spécifiques pour la section MAUP:
 ## Supports de cours
 
 ### Sémiologie et mise en page (3 heures)
-   - [Cours : LPRO_Cours_0_Intro.pdf](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
+- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/refs/heads/master/M2IGAST_Carto.html)
+- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
 
 ### La discrétisation (3 heures)
-   - [Cours : LPRO_Cours_1_stat.pdf](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_1_stat.pdf)
+- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_discretisation.slides.html)
+- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
 
 ### MAUP (3 heures)
    - A venir
 
 ## Travaux Dirigés (TD) 
-   - [TD cartographie](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_TD_1_stat.pdf)
+- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_TD.html)
+- [PDF](https://github.com/fbxyz/ENSG_L1PRO/blob/master/Cours/pdf/LPRO_Cours_0_Intro.pdf)
       
 ### Données 
 A télécharger (download raw file)
-  - [DEP_FORET_3857.geojson](https://github.com/fbxyz/ENSG_IGAST/blob/master/data/DEP_FORET_3857.geojson )
+  - [DEP_FORET_3857.geojson](https://github.com/fbxyz/ENSG_IGAST/blob/master/data/DEP_FORET_3857.geojson)
+  - [UE_GEN3_3857.geojson](https://github.com/fbxyz/ENSG_IGAST/blob/master/data/UE_GEN3_3857.geojson)
 
 ## Public visé
 Ce cours s'adresse aux étudiants du M2 IGAST
