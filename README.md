@@ -37,7 +37,7 @@ Objectifs spécifiques pour la section MAUP:
 
 ### MAUP (3 heures)
 - [RMD](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_MAUP.Rmd)
-- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2IGAST_MAUP.html)
+- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/refs/heads/master/M2IGAST_MAUP.html)
 
 ## Travaux Dirigés (TD) 
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_TD.html)
