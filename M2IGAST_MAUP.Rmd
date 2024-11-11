@@ -1,0 +1,713 @@
+---
+title: "Cours MAUP M2 IGAST"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+
+
+# 1 - Objectifs du TD
+
+Ce TD a pour objectif de sensibiliser les étudiants au MAUP et à ses implications pour l'analyse spatiale.
+
+Il permettra aux étudiants de comprendre comment le choix des unités spatiales peut influencer les résultats de l'analyse et d'apprendre à identifier et à atténuer les effets du MAUP.
+
+------------------------------------------------------------------------
+
+# 2 - Définition et exemples
+
+## 2.1 Définition
+
+Le MAUP (Modifiable Areal Unit Problem) est un biais statistique qui peut influencer les résultats des tests d'hypothèses statistiques.
+
+Il survient lorsque des mesures ponctuelles de phénomènes spatiaux sont agrégées en unités spatiales (comme des régions ou des maillages abstraits) pour calculer des valeurs résumées telles que des totaux, des taux, des proportions ou des densités. Ces valeurs sont influencées à la fois par la forme et par l'échelle de l'unité d'agrégation.
+
+-   En d'autres termes, les conclusions que vous tirez de l'analyse de données spatiales peuvent varier en fonction de la taille, de la forme et de la configuration des unités géographiques que vous utilisez.
+
+-   Ce problème est crucial car il peut conduire à des interprétations erronées des données et à des conclusions inexactes.
+
+### 2.1.1 - Interprétations erronées
+
+Le MAUP peut conduire à des interprétations erronées des données et à des conclusions inexactes. Les résultats d'une analyse peuvent varier considérablement en fonction de la manière dont les données sont agrégées géographiquement.
+
+### 2.1.2 - Biais dans les études spatiales
+
+Le MAUP est une source d'erreur critique dans les études spatiales, qu'elles soient observationnelles ou expérimentales. Il peut masquer une forte corrélation entre les variables ou, à l'inverse, faire apparaître une association significative là où il n'y en a pas.
+
+### 2.1.3 - Difficulté de généralisation
+
+Les résultats obtenus à partir d'une zone géographique particulière ne peuvent pas être généralisés à d'autres zones avec des limites différentes.
+
+### 2.1.4 - Impact sur les résultats
+
+Les décisions basées sur des données agrégées peuvent être biaisées par le MAUP, ce qui peut avoir des conséquences importantes sur les politiques publiques, notamment en matière de santé, d'aménagement du territoire ou de transport.
+
+## 2.2 - Effet de zonage et l'effet d'échelle
+
+Le MAUP survient lorsque les résultats de l'analyse sont influencés par la manière dont les données sont agrégées géographiquement. Il se manifeste par deux effets principaux : **l'effet de zonage** et **l'effet d'échelle**.
+
+### 2.2.1 - Effet de zonage :
+
+L'effet de zonage décrit la variation des statistiques causée par le regroupement des données en différentes configurations à la même échelle. Il s'agit de la forme des unités spatiales qui est modifiée, tout en gardant une superficie constante.
+
+Par exemple, si l'on divise un territoire en zones de formes différentes (carrées, rectangulaires, circulaires), les résultats d'une analyse statistique portant sur la densité de population ou le taux de criminalité peuvent varier considérablement, même si la superficie totale de chaque zone est la même.
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_grid.png)
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_grid_agg.png)
+
+### 2.2.2 - Effet d'échelle :
+
+L'effet d'échelle provoque une variation des résultats statistiques entre différents niveaux d'agrégation.
+
+Il s'agit du niveau d'agrégation qui est modifié, ce qui implique une modification de la superficie des unités spatiales.
+
+### 2.2.3 - Exemple de l'effet de zonage et de l'effet d'échelle
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_exemple.png)
+
+A noter que le MAUP va aussi avoir des effets sur vos analyses de corrélation : cette dernière tend à augmenter à mesure que la taille de l'unité spatiale augmente.
+
+## 2.3 : Exemple à partir d'un tableau
+
+|               | Employés | Chômeurs | Total | (Chômeurs %) |
+|---------------|----------|----------|-------|--------------|
+| **Zone A**    |          |          |       |              |
+| Jeunes        | 81       | 9        | 90    | (10%)        |
+| Vieux         | 9        | 1        | 10    | (10%)        |
+| **Total**     | 90       | 10       | 100   | (10%)        |
+| **Zone B**    |          |          |       |              |
+| Jeunes        | 40       | 10       | 50    | (20%)        |
+| Vieux         | 40       | 10       | 50    | (20%)        |
+| **Zones A+B** | 80       | 20       | 100   | (20%)        |
+| Jeunes        | 121      | 19       | 140   | (13.6%)      |
+| Vieux         | 49       | 11       | 60    | (18.3%)      |
+| ***Total***   | *170*    | *30*     | *200* | *(15%)*      |
+
+------------------------------------------------------------------------
+
+### 2.3.1 - Observations :
+
+-   Les zones A et B ont chacune une population totale de 100 personnes.
+-   Dans la zone A, 10% de jeunes et 10% de vieux sont au chômage.
+-   Dans la zone B, 20% de jeunes et 20% de vieux sont au chômage.
+
+### 2.3.2 - Biais :
+
+Si l'on combine les zones A et B, on pourrait s'attendre à ce que le taux de chômage global soit de 15% pour les deux groupes. Cependant, ce n'est pas le cas.
+
+-   Le taux de chômage combiné pour les jeunes est de 13,6%.
+-   Le taux de chômage combiné pour les vieux est de 18,3%.
+
+### Explication du biais :
+
+Ce résultat inattendu est dû à la différence de la taille des populations de chaque groupe ethnique dans les zones A et B.
+
+-   La zone A a une population jeunes beaucoup plus importante que la population âgée.
+-   La zone B a des populations jeunes et âgées égales.
+
+En combinant les zones, le taux de chômage global est davantage influencé par la zone A, qui a une population jeune plus importante. Cela crée un biais qui donne l'impression que le taux de chômage est plus faible pour les jeunes que pour les vieux
+
+Cet exemple illustre l'effet d'échelle du MAUP : le choix de l'unité spatiale d'agrégation (zone A, zone B ou A+B) a un impact direct sur les statistiques calculées et peut conduire à des conclusions erronées.
+
+## 2.4 - Exemple : le Gerrymandering
+
+Le Gerrymandering est une pratique qui consiste à manipuler les frontières des circonscriptions électorales afin de favoriser un parti politique ou un groupe particulier.
+
+Cette manipulation peut prendre différentes formes, notamment: - Concentrer les électeurs d'un parti adverse dans un petit nombre de districts afin de réduire leur influence dans les autres districts. - Disperser les électeurs d'un parti adverse dans plusieurs districts afin de les empêcher d'obtenir une majorité dans aucun d'entre eux. - Créer des districts de formes bizarres et non compactes pour regrouper les électeurs favorables à un parti donné.
+
+### 2.4.1 - Dans le principe :
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_gerry.png "How to steal an election")
+
+### 2.4.2 - Dans la réalité :
+
+> `📝` Que constatez-vous dans cet exemple sur le Wisconsin ?
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_wisconsin.png "How to steal an election")
+
+# 3 - Compréhension du phénomène
+
+Nous allons maintenant illustrer le phénomène du MAUP en reprenant le jeu de données sur le taux de boisement en France
+
+## 3.1 - Chargement et structures des données
+
+### Commune : *com_foret*
+
+> `📝` Chargez les données pour les communes dans un dataframe *com_foret*
+>
+> `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
+
+```{r}
+library(sf)
+
+# Chemin vers les données EPCI
+url_com <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_COM_FORET_3857.geojson" 
+url_com <- "./data/MAUP_COM_FORET_3857.geojson"
+
+# Charger le fichier GeoJSON des EPCI
+com_foret <- st_read(url_com)
+com_foret <- st_transform(com_foret, crs = 2154)
+
+# Calcul du taux de boisement 
+com_foret$txbois <- round(com_foret$surface_foret / com_foret$surface_com *100,1)
+
+# Afficher la structure des données
+str(com_foret)
+
+```
+
+### EPCI : *epci_foret*
+
+> `📝` Chargez les données pour les EPCI dans un dataframe *epci_foret*
+>
+> `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
+
+```{r}
+library(sf)
+
+# Chemin vers les données EPCI
+url_epci <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_EPCI_FORET_3857.geojson" 
+url_epci <- "./data/MAUP_EPCI_FORET_3857.geojson"
+
+# Charger le fichier GeoJSON des EPCI
+epci_foret <- st_read(url_epci)
+epci_foret <- st_transform(epci_foret, crs = 2154)
+
+# Calcul du taux de boisement 
+epci_foret$txbois <- round(epci_foret$surface_foret / epci_foret$surface_epci *100,1)
+
+# Afficher la structure des donnéessurface_epcisurface_epci
+str(epci_foret)
+
+```
+
+### Départements : dep_foret
+
+> `📝` Chargez les données pour les départements dans un dataframe *dep_foret*
+>
+> `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
+
+```{r}
+
+# Chemin vers les données des départements
+url_dep <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_DEP_FORET_3857.geojson"
+url_dep <- "./data/MAUP_DEP_FORET_3857.geojson"
+
+# Charger le fichier GeoJSON des départements
+dep_foret <- st_read(url_dep)
+dep_foret <- st_transform(dep_foret, crs = 2154)
+
+# Calcul du taux de boisement 
+dep_foret$txbois <- round(dep_foret$surface_foret / dep_foret$surface_dept *100,1)
+
+# Afficher la structure des données
+str(dep_foret)
+
+```
+
+### Anciennes régions
+
+> `📝` Chargez les données pour les anciennes régions dans un dataframe *oldreg_foret*
+>
+> `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
+
+```{r}
+
+# Chemin vers les données des anciennes régions
+url_oldreg <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_OLDREG_FORET_3857.geojson"
+url_oldreg <- "./data/MAUP_OLDREG_FORET_3857.geojson"
+
+# Charger le fichier GeoJSON
+oldreg_foret <- st_read(url_oldreg)
+oldreg_foret <- st_transform(oldreg_foret, crs = 2154)
+
+# Calcul du taux de boisement 
+oldreg_foret$txbois <- round(oldreg_foret$surface_foret / oldreg_foret$surface_oldreg *100,1)
+
+# Afficher la structure des données
+str(oldreg_foret)
+
+```
+
+### Nouvelles régions
+
+> `📝` Chargez les données pour les anciennes régions dans un dataframe *oldreg_foret*
+>
+> `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
+
+```{r}
+
+# Chemin vers les données des nouvlles régions
+url_reg <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_REG_FORET_3857.geojson"
+url_reg <- "./data/MAUP_REG_FORET_3857.geojson"
+
+# Charger le fichier GeoJSON
+reg_foret <- st_read(url_reg)
+reg_foret <- st_transform(reg_foret, crs = 2154)
+
+# Calcul du taux de boisement 
+reg_foret$txbois <- round(reg_foret$surface_foret / reg_foret$surface_reg *100,1)
+
+# Afficher la structure des données
+str(reg_foret)
+
+```
+
+## 3.2 - Cartographie des données
+
+Pour illustrer les différents effets du MAUP, vous allez cartographier le même taux de boisement en France, mais à différents maillages.
+
+La première carte à la commune est montrée en exemple
+
+### Carte par communes
+
+```{r}
+# Charger le package mapsf pour la création des cartes
+library(mapsf)
+
+mf_theme("dark")
+mf_shadow(com_foret, col = "grey50", cex = 0.3)
+
+# Créer un fond pour la carte en utilisant la fonction mf_map()
+mf_map(x = com_foret, 
+       var = "txbois", 
+       type = "choro",
+       breaks = "fisher",
+       nbreaks = 5,
+       leg_pos = "left",
+       leg_title = "Taux de boisement\n(en %)",
+       leg_val_rnd = 1,
+       border = "grey30",
+       lwd = 0.2,
+       #expandBB = c(0, -0.3, 0, -0.6),
+       add = TRUE
+       )
+
+mf_title("Taux de boisement par commune en 2024")
+mf_credits("Source: IGN, 2024")
+
+```
+
+### Carte par EPCI
+
+> `📝` En vous aidant de l'exemple précédent, cartographiez le taux de boisement pour les EPCI, les départements, les anciennes régions et les nouvelles régions.
+
+> `📝` Appliquez vos connaissances sur la discrétisation pour rendre les cartes comparables
+
+> `📝` Consultez l'aide de mapsf si besoin : <https://riatelab.github.io/mapsf/reference/mf_get_breaks.html>
+
+> `📝` Qu’observez-vous sur la répartition du taux de boisement à différentes échelles d’agrégation ?
+
+```{r}
+# Charger le package mapsf pour la création des cartes
+library(mapsf)
+
+mf_theme("dark")
+mf_shadow(epci_foret, col = "grey50", cex = 0.3)
+
+# Créer un fond pour la carte en utilisant la fonction mf_map()
+mf_map(x = epci_foret, 
+       var = "txbois", 
+       type = "choro",
+       breaks = "fisher",
+       nbreaks = 5,
+       leg_pos = "left",
+       leg_title = "Taux de boisement\n(en %)",
+       leg_val_rnd = 1,
+       border = "grey30",
+       lwd = 0.2,
+       #expandBB = c(0, -0.3, 0, -0.6),
+       add = TRUE
+       )
+
+mf_title("Taux de boisement par EPCI en 2024")
+mf_credits("Source: IGN, 2024")
+
+```
+
+### Carte par Départements
+
+```{r}
+
+mf_theme("dark")
+mf_shadow(dep_foret, col = "grey50", cex = 0.3)
+
+# Créer un fond pour la carte en utilisant la fonction mf_map()
+mf_map(x = dep_foret, 
+       var = "txbois", 
+       type = "choro",
+       breaks = "fisher",
+       nbreaks = 5,
+       leg_pos = "left",
+       leg_title = "Taux de boisement\n(en %)",
+       leg_val_rnd = 1,
+       border = "grey30",
+       lwd = 0.2,
+       #expandBB = c(0, -0.3, 0, -0.6),
+       add = TRUE
+       )
+
+mf_title("Taux de boisement par départements en 2024")
+mf_credits("Source: IGN, 2024")
+
+```
+
+### Carte par Anciennes régions
+
+```{r}
+mf_theme("dark")
+mf_shadow(oldreg_foret, col = "grey50", cex = 0.3)
+
+# Créer un fond pour la carte en utilisant la fonction mf_map()
+mf_map(x = oldreg_foret, 
+       var = "txbois", 
+       type = "choro",
+       breaks = "fisher",
+       nbreaks = 5,
+       leg_pos = "left",
+       leg_title = "Taux de boisement\n(en %)",
+       leg_val_rnd = 1,
+       border = "grey30",
+       lwd = 0.2,
+       #expandBB = c(0, -0.3, 0, -0.6),
+       add = TRUE
+       )
+
+mf_title("Taux de boisement par anciennes régions en 2024")
+mf_credits("Source: IGN, 2024")
+```
+
+### Carte par Nouvelles régions
+
+```{r}
+mf_theme("dark")
+mf_shadow(reg_foret, col = "grey50", cex = 0.3)
+
+# Créer un fond pour la carte en utilisant la fonction mf_map()
+mf_map(x = reg_foret, 
+       var = "txbois", 
+       type = "choro",
+       breaks = "fisher",
+       nbreaks = 5,
+       leg_pos = "left",
+       leg_title = "Taux de boisement\n(en %)",
+       leg_val_rnd = 1,
+       border = "grey30",
+       lwd = 0.2,
+       #expandBB = c(0, -0.3, 0, -0.6),
+       add = TRUE
+       )
+
+mf_title("Taux de boisement par régions en 2024")
+mf_credits("Source: IGN, 2024")
+```
+
+## 3.3 Analyse univariée
+
+En utilisant les acquis des cours précédents, réaliser l'analyse univariée du taux de boisement pour chaque maillage
+
+> `📝` Calculez les valeurs centrales et les paramètres de dispersion
+
+> `📝` Des boxplots pourraient s'avérer utiles
+
+> `📝` Que constatez-vous ?
+
+
+### EPCI
+
+```{r}
+
+summary(epci_foret$txbois)
+
+sd(epci_foret$txbois)
+
+boxplot(epci_foret$txbois, 
+        main = "Taux de boisement par EPCI", 
+        ylab = "Taux de boisement (%)")
+
+```
+
+### Départements
+
+```{r}
+
+```
+
+### Anciennes régions
+
+```{r}
+
+```
+
+### Nouvelles régions
+
+```{r}
+
+```
+
+### Comparaisons
+
+```{r}
+# Charger les données en format long avec `stack` 
+df_txbois_long <- stack(list(
+  Communes = com_foret$txbois,
+  EPCI = epci_foret$txbois,
+  Departements = dep_foret$txbois,
+  Anciennes_regions = oldreg_foret$txbois,
+  Nouvelles_regions = reg_foret$txbois
+))
+
+# Renommer les colonnes pour plus de clarté
+colnames(df_txbois_long) <- c("txbois", "Maillage")
+
+# Calculer les valeurs centrales pour chaque maillage
+mean_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, mean, na.rm = TRUE)
+median_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, median, na.rm = TRUE)
+sd_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, sd, na.rm = TRUE)
+
+# Créer un dataframe pour résumer les valeurs centrales
+df_summary <- data.frame(
+  Maillage = names(mean_vals),
+  Moyenne = mean_vals,
+  Mediane = median_vals,
+  Ecart_type = sd_vals
+)
+
+print(df_summary)
+```
+
+Boxplots
+```{r}
+# Créer les boxplots avec ggplot2
+
+library(ggplot2)
+
+ggplot(df_txbois_long, aes(x = Maillage, y = txbois, fill = Maillage)) +
+  geom_boxplot() +
+  labs(
+    title = "Comparaison du taux de boisement selon le maillage",
+    x = "Maillage",
+    y = "Taux de boisement (%)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") 
+
+```
+
+
+Scatter
+```{r}
+
+com_foret_df <- st_drop_geometry(com_foret)
+
+taux_boisement_dept <- com_foret_df %>%
+  dplyr::group_by(insee_dep) %>%
+  dplyr::summarise(txbois_moyen = mean(txbois, na.rm = TRUE))
+
+communes <- com_foret_df %>%
+  dplyr::left_join(taux_boisement_dept, by = "insee_dep")
+
+ggplot(communes, aes(x = txbois, y = txbois_moyen)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Comparaison des taux de boisement entre échelles communale et départementale",
+    x = "Taux de boisement - Échelle communale",
+    y = "Taux de boisement - Échelle départementale"
+  ) 
+
+```
+
+### Correction :
+
+-   des variations dans les valeurs centrales : Les moyennes et médianes du taux de boisement peuvent différer selon le maillage utilisé, illustrant l'influence du choix de l'unité spatiale sur les statistiques descriptives.
+
+-   Une diminution de la dispersion avec l'augmentation de l'échelle : Les écarts-types et l'étendue des boxplots seront généralement plus importants pour les maillages fins (EPCI) et diminueront progressivement avec l'augmentation de l'échelle (Nouvelles régions). Cela s'explique par le phénomène d'agrégation : en regroupant les données sur des zones plus vastes, on lisse les variations locales.
+
+## 3.4 - Aggrégation des résultats à partir des différents maillage
+
+> `📝` A partir de *com_foret*, reconstruisez le maillage aux nouvelles régions.
+
+> `📝` Lors du regroupement, faites la **somme** des surfaces et la \*\*moyenne\* de txbois
+
+> `📝` Privilégiez l'utilisation de dplyr. Supprimez la géométrie de *com_foret* avec : com_foret_df <- st_drop_geometry(com_foret)
+
+> `📝` Recalculez *txbois* à partir de la somme des surfaces de forêts dans chaque région et de la superficie des régions
+
+> `📝` Que constatez-vous ?
+
+```{r}
+
+library(dplyr)
+
+
+# Conversion de sf à data.frame sans géométrie
+com_foret_df <- st_drop_geometry(com_foret)
+
+# Agrégation des données par région (insee_reg)
+reg_foret_reconstruit <- com_foret_df %>%
+  group_by(code = insee_reg) %>%
+  summarise(
+    surface_reg = sum(surface_com, na.rm = TRUE),
+    surface_foret = sum(surface_foret, na.rm = TRUE),
+    txbois_moyen = mean(txbois, na.rm = TRUE)
+  )
+
+reg_foret_reconstruit$txbois <- round(reg_foret_reconstruit$surface_foret / reg_foret_reconstruit$surface_reg *100,1)
+
+reg_foret_reconstruit
+```
+
+------------------------------------------------------------------------
+
+# 4 - Pour aller plus loin
+
+## Quelles solutions pour limiter les effets du MAUP ?
+
+Le MAUP est un défi majeur en analyse spatiale, mais il existe plusieurs approches pour tenter de minimiser son influence et obtenir des résultats plus robustes.
+
+### Faire prendre conscience du problème
+
+La première étape pour minimiser l'impact du MAUP est de sensibiliser les utilisateurs aux dangers potentiels de l'agrégation spatiale des données. Il est essentiel de comprendre que le choix des unités spatiales peut influencer significativement les résultats d'une analyse.
+
+### Utilisation de données à l'échelle la plus fine possible
+
+Si possible, utiliser des données à l'échelle la plus fine possible, pour minimiser l'impact du MAUP. Cette approche permet d'éviter l'agrégation des données et de conserver la précision spatiale.
+
+Elle pose néanmoins un problème majeur : avec des maillages de petites tailles, la puissance statistique peut être insuffisante ou bien poser des problèmes de confidentialité
+
+### Analyse de sensibilité du MAUP
+
+L'analyse de sensibilité du MAUP est une approche importante pour évaluer l'impact du choix des unités spatiales sur les résultats de l'analyse.
+
+Elle consiste à effectuer des analyses avec différentes configurations d'unités spatiales et à comparer les résultats pour identifier les zones de sensibilité. Le rapport de variance permet d'étudier l'effet de la configuration spatiale, de l'association spatiale et de l'agrégation des données.
+
+### Régression
+
+Dans le cas où vous appliquez une régression linéaire / multiple sur une zone d'étude, vous pouvez réduire les biais du MAUP
+
+-   En utilisant une régression spatiale pondérée
+-   En utilisant des modèles hiérarchiques bayésiens. Ils permettent de combiner des données agrégées et des données individuelles pour l'inférence écologique. Cette approche permet de tenir compte de la structure hiérarchique des données spatiales et de modéliser les relations entre les variables à différents niveaux d'agrégation.
+
+### Lissage spatial et géographique
+
+Le lissage spatial et le lissage géographique sont des techniques qui peuvent être utilisées pour atténuer les effets du MAUP en analyse spatiale.
+
+Le **lissage spatial** est une méthode d'estimation non paramétrique de la fonction d'intensité de données ponctuelles.
+
+-   Il permet de révéler des structures spatiales sous-jacentes en filtrant l'information.
+-   Il s'agit d'une modélisation locale qui repose sur le choix d'un kernel et d'une bandwith.
+-   Le kernel décrit la façon dont le voisinage est appréhendé (type de fonction à l'intérieur de la fenêtre),
+-   tandis que la bandwith quantifie la « taille » du voisinage.
+-   Le choix de la bandwith est un arbitrage entre la précision spatiale de l'analyse et sa qualité statistique (compromis biais-variance).
+
+Dans cet exemple, les médecins généralistes sont géocodés à l'adresse exacte. Ils auraient pu être localisés dans un maillage, mais il est préférable d'avoir leur localisation exacte à cette échelle.
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_gp.png)
+
+Sur la zone d'étude, on applique un Kernel Density Estimator (KDE) de bandwith 200m et avec une fonction gaussienne dans le kernel.
+
+![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_kde_gp.png "Two dimensionals KDE with an estimator bandwidth of 0.2")
+
+Le **lissage géographique** s'inspire du lissage spatial pour obtenir des représentations cartographiques simplifiées.
+
+-   Il consiste à remplacer la valeur observée en un point par une moyenne pondérée des valeurs observées au voisinage de ce point dans un rayon prédéfini.
+-   Il faut utiliser une matrice de voisinage d'ordre n. Les données sont généralement pondérées en fonction à l'inverse de l'ordre.
+-   La fonction de pondération dépendante de l'ordre se comporte comme un paramètre de lissage, contrôlant l'équilibre entre biais et variance.
+
+#### Avantages du lissage spatial et géographique :
+
+-   S'affranchir de l'arbitraire des découpages territoriaux.
+-   Limiter les effets de bord.
+-   Révéler des variations locales à différentes échelles.
+-   Assurer une forme de confidentialité.
+
+#### Points à prendre en compte :
+
+Choix de la bande passante :
+
+-   Le choix de la bande passante est crucial, car il influence la précision et la variance des estimations.
+-   Il n'existe pas de bande passante optimale unique, et il est conseillé de tester plusieurs valeurs pour révéler les différents aspects spatiaux du phénomène étudié.
+
+Effets de bord :
+
+-   Les effets de bord peuvent influencer les estimations, en particulier à proximité des frontières de la zone d'étude.
+-   Différentes corrections existent pour prendre en compte les effets de bord, comme la correction uniforme et la correction de Diggle.
+
+Interprétation des résultats :
+
+-   Les méthodes de lissage atténuent les ruptures et les frontières, induisant des représentations continues des phénomènes géographiques. - Il est important de commenter uniquement des phénomènes dont l'ordre de grandeur est très supérieur au rayon de lissage.
+
+------------------------------------------------------------------------
+
+# Conclusion
+
+Le MAUP, comme nous l'avons vu tout au long de ce TD, représente un défi majeur en analyse spatiale. Il est crucial de retenir que le choix des unités spatiales, leur forme et leur taille, peuvent influencer de manière significative les résultats de nos analyses. Les exemples du taux de boisement en France et de l'analyse du chômage par groupe ethnique ont clairement illustré comment des conclusions différentes peuvent être tirées d'un même jeu de données, simplement en modifiant l'échelle géographique d'analyse.
+
+Face à ce constat, il est essentiel de mettre en place des stratégies pour minimiser l'impact du MAUP sur nos analyses. L'utilisation de données à l'échelle la plus fine possible, la réalisation d'analyses de sensibilité avec différentes configurations spatiales, et l'utilisation de techniques de régression spatiale, comme la régression spatiale pondérée ou les modèles hiérarchiques bayésiens, sont autant d'outils à notre disposition
+
+Il n'existe donc pas de solution unique pour résoudre complètement le MAUP. La meilleure approche dépend de la question de recherche, des données disponibles et des objectifs de l'analyse. Il est important de combiner différentes méthodes et d'effectuer des analyses de sensibilité pour évaluer l'impact du MAUP et obtenir des résultats robustes.
+
+En outre, une transparence méthodologique rigoureuse est indispensable pour garantir la validité et la reproductibilité des analyses spatiales. La documentation précise des échelles géographiques utilisées et la discussion ouverte sur l'impact potentiel du MAUP sur les résultats sont des éléments essentiels pour une communication scientifique.
+
+Ce TD a permis de mettre en lumière l'importance capitale de la prise de conscience du MAUP et de ses implications dans toute analyse spatiale. Il est crucial de comprendre que le choix des unités spatiales peut biaiser nos résultats. L'adoption d'une approche méthodologique rigoureuse, combinant des données fines, des analyses de sensibilité et des techniques statistiques adaptées, est indispensable pour limiter ces biais et produire des conclusions robustes
+
+# Bibliographie
+
+## Ouvrages de Référence sur le MAUP
+
+```         
+Openshaw, S. (1984). The Modifiable Areal Unit Problem. Geo Books, Norwich.
+    Ouvrage fondateur qui explore en profondeur le MAUP, ses implications et ses effets sur les analyses spatiales.
+
+Fotheringham, A. S., & Wong, D. W. S. (1991). "The Modifiable Areal Unit Problem in Multivariate Statistical Analysis". Environment and Planning A, 23(7), 1025-1044.
+    Article clé qui étudie le MAUP dans le contexte d'analyses multivariées, avec des exemples de l'impact du MAUP.
+```
+
+## Analyses Spatiales et Statistiques de lissage
+
+```         
+Bailey, T. C., & Gatrell, A. C. (1995). Interactive Spatial Data Analysis. Longman, Essex.
+    Référence pour les techniques de lissage et les statistiques spatiales appliquées, incluant des méthodes de lissage géographique et de calcul de densité spatiale.
+
+Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman and Hall, London.
+    Ouvrage de base sur l'estimation de densité, qui décrit les méthodes de lissage par noyau (Kernel Density Estimation, KDE), essentielles pour des analyses continues sans les effets du MAUP.
+
+Waller, L. A., & Gotway, C. A. (2004). Applied Spatial Statistics for Public Health Data. Wiley, Hoboken.
+    Un manuel détaillant les approches statistiques spatiales, y compris le lissage, la correction des effets de bord, et les solutions pour atténuer les biais en santé publique.
+```
+
+## Techniques de Régression Spatiale et Méthodes Avancées
+
+```         
+Anselin, L. (1988). Spatial Econometrics: Methods and Models. Kluwer Academic Publishers, Dordrecht.
+    Ouvrage de référence pour les méthodes de régression spatiale, incluant la régression spatiale pondérée et les modèles économétriques spatiaux.
+
+Banerjee, S., Carlin, B. P., & Gelfand, A. E. (2014). Hierarchical Modeling and Analysis for Spatial Data. Chapman & Hall/CRC.
+    Exploration des modèles hiérarchiques bayésiens et de leurs applications en analyses spatiales, une méthode avancée pour réduire les biais du MAUP.
+```
+
+## Sensibilisation et Prise en Compte des Effets du MAUP
+
+```         
+Dark, S. J., & Bram, D. (2007). "The Modifiable Areal Unit Problem (MAUP) in Physical Geography". Progress in Physical Geography, 31(5), 471-479.
+    Article de synthèse qui explique les effets du MAUP en géographie physique et propose des solutions méthodologiques pour sa minimisation.
+```
+
+## Techniques Spécifiques de Lissage et Estimation
+
+```         
+Diggle, P. J. (1985). "A Kernel Method for Smoothing Point Process Data". Journal of the Royal Statistical Society: Series C (Applied Statistics), 34(2), 138-147.
+    Ouvrage classique sur le choix et l'impact des noyaux et de la largeur de bande (bandwidth) en lissage spatial.
+```
+
+## Approches pour Limiter les Effets du MAUP
+
+```         
+Cressie, N. (1993). Statistics for Spatial Data. Wiley, New York.
+    Livre qui aborde divers problèmes spatiaux, notamment les effets de bord et les approches de pondération spatiale pour éviter les biais.
+
+Haining, R. P. (2003). Spatial Data Analysis: Theory and Practice. Cambridge University Press.
+    Aborde le MAUP et propose des techniques d’analyse de sensibilité pour tester l’effet des différentes échelles sur les données spatiales.
+```
