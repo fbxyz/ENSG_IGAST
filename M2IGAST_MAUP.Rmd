@@ -3,15 +3,14 @@ title: "Cours MAUP M2 IGAST"
 output:
   html_document:
     toc: true
-    theme: united
+    toc_float: true
 ---
-
 
 # 1 - Objectifs du TD
 
 Ce TD a pour objectif de sensibiliser les étudiants au MAUP et à ses implications pour l'analyse spatiale.
 
-Il permettra aux étudiants de comprendre comment le choix des unités spatiales peut influencer les résultats de l'analyse et d'apprendre à identifier et à atténuer les effets du MAUP.
+Il permettra aux étudiants de comprendre comment le choix des unités spatiales peut influencer les résultats de l'analyse et d'apprendre à identifier et à atténuer les effets du **MAUP**.
 
 ------------------------------------------------------------------------
 
@@ -19,13 +18,13 @@ Il permettra aux étudiants de comprendre comment le choix des unités spatiales
 
 ## 2.1 Définition
 
-Le MAUP (Modifiable Areal Unit Problem) est un biais statistique qui peut influencer les résultats des tests d'hypothèses statistiques.
+Le **MAUP (Modifiable Areal Unit Problem)** est un biais statistique qui peut influencer les résultats en analyse spatiale.
 
-Il survient lorsque des mesures ponctuelles de phénomènes spatiaux sont agrégées en unités spatiales (comme des régions ou des maillages abstraits) pour calculer des valeurs résumées telles que des totaux, des taux, des proportions ou des densités. Ces valeurs sont influencées à la fois par la forme et par l'échelle de l'unité d'agrégation.
+Il survient lorsque des mesures ponctuelles de phénomènes spatiaux sont agrégées en unités spatiales (comme des régions ou des maillages abstraits) pour calculer des **valeurs résumées** telles que des taux ou des proportions. Ces valeurs sont influencées à la fois par la forme et par l'échelle de l'unité d'agrégation.
 
--   En d'autres termes, les conclusions que vous tirez de l'analyse de données spatiales peuvent varier en fonction de la taille, de la forme et de la configuration des unités géographiques que vous utilisez.
+-   En d'autres termes, les conclusions que vous tirez de l'analyse de données spatiales peuvent varier en fonction de la **taille**, de la **forme** et de la **configuration** des unités géographiques que vous utilisez.
 
--   Ce problème est crucial car il peut conduire à des interprétations erronées des données et à des conclusions inexactes.
+-   Ce problème est crucial car il peut conduire à des **interprétations erronées** des données et à des conclusions inexactes.
 
 ### 2.1.1 - Interprétations erronées
 
@@ -53,9 +52,9 @@ L'effet de zonage décrit la variation des statistiques causée par le regroupem
 
 Par exemple, si l'on divise un territoire en zones de formes différentes (carrées, rectangulaires, circulaires), les résultats d'une analyse statistique portant sur la densité de population ou le taux de criminalité peuvent varier considérablement, même si la superficie totale de chaque zone est la même.
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_grid.png)
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_point_grid.png)
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_grid_agg.png)
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_point_grid_agg.png)
 
 ### 2.2.2 - Effet d'échelle :
 
@@ -65,7 +64,7 @@ Il s'agit du niveau d'agrégation qui est modifié, ce qui implique une modifica
 
 ### 2.2.3 - Exemple de l'effet de zonage et de l'effet d'échelle
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_exemple.png)
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_exemple.png)
 
 A noter que le MAUP va aussi avoir des effets sur vos analyses de corrélation : cette dernière tend à augmenter à mesure que la taille de l'unité spatiale augmente.
 
@@ -85,7 +84,6 @@ A noter que le MAUP va aussi avoir des effets sur vos analyses de corrélation :
 | Vieux         | 49       | 11       | 60    | (18.3%)      |
 | ***Total***   | *170*    | *30*     | *200* | *(15%)*      |
 
-------------------------------------------------------------------------
 
 ### 2.3.1 - Observations :
 
@@ -119,13 +117,13 @@ Cette manipulation peut prendre différentes formes, notamment: - Concentrer les
 
 ### 2.4.1 - Dans le principe :
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_gerry.png "How to steal an election")
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_gerry.png "How to steal an election")
 
 ### 2.4.2 - Dans la réalité :
 
 > `📝` Que constatez-vous dans cet exemple sur le Wisconsin ?
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_wisconsin.png "How to steal an election")
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_wisconsin.png "How to steal an election")
 
 # 3 - Compréhension du phénomène
 
@@ -144,17 +142,10 @@ library(sf)
 
 # Chemin vers les données EPCI
 url_com <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_COM_FORET_3857.geojson" 
-url_com <- "./data/MAUP_COM_FORET_3857.geojson"
 
 # Charger le fichier GeoJSON des EPCI
 com_foret <- st_read(url_com)
 com_foret <- st_transform(com_foret, crs = 2154)
-
-# Calcul du taux de boisement 
-com_foret$txbois <- round(com_foret$surface_foret / com_foret$surface_com *100,1)
-
-# Afficher la structure des données
-str(com_foret)
 
 ```
 
@@ -169,17 +160,7 @@ library(sf)
 
 # Chemin vers les données EPCI
 url_epci <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_EPCI_FORET_3857.geojson" 
-url_epci <- "./data/MAUP_EPCI_FORET_3857.geojson"
 
-# Charger le fichier GeoJSON des EPCI
-epci_foret <- st_read(url_epci)
-epci_foret <- st_transform(epci_foret, crs = 2154)
-
-# Calcul du taux de boisement 
-epci_foret$txbois <- round(epci_foret$surface_foret / epci_foret$surface_epci *100,1)
-
-# Afficher la structure des donnéessurface_epcisurface_epci
-str(epci_foret)
 
 ```
 
@@ -193,17 +174,7 @@ str(epci_foret)
 
 # Chemin vers les données des départements
 url_dep <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_DEP_FORET_3857.geojson"
-url_dep <- "./data/MAUP_DEP_FORET_3857.geojson"
 
-# Charger le fichier GeoJSON des départements
-dep_foret <- st_read(url_dep)
-dep_foret <- st_transform(dep_foret, crs = 2154)
-
-# Calcul du taux de boisement 
-dep_foret$txbois <- round(dep_foret$surface_foret / dep_foret$surface_dept *100,1)
-
-# Afficher la structure des données
-str(dep_foret)
 
 ```
 
@@ -217,17 +188,7 @@ str(dep_foret)
 
 # Chemin vers les données des anciennes régions
 url_oldreg <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_OLDREG_FORET_3857.geojson"
-url_oldreg <- "./data/MAUP_OLDREG_FORET_3857.geojson"
 
-# Charger le fichier GeoJSON
-oldreg_foret <- st_read(url_oldreg)
-oldreg_foret <- st_transform(oldreg_foret, crs = 2154)
-
-# Calcul du taux de boisement 
-oldreg_foret$txbois <- round(oldreg_foret$surface_foret / oldreg_foret$surface_oldreg *100,1)
-
-# Afficher la structure des données
-str(oldreg_foret)
 
 ```
 
@@ -241,17 +202,7 @@ str(oldreg_foret)
 
 # Chemin vers les données des nouvlles régions
 url_reg <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_REG_FORET_3857.geojson"
-url_reg <- "./data/MAUP_REG_FORET_3857.geojson"
 
-# Charger le fichier GeoJSON
-reg_foret <- st_read(url_reg)
-reg_foret <- st_transform(reg_foret, crs = 2154)
-
-# Calcul du taux de boisement 
-reg_foret$txbois <- round(reg_foret$surface_foret / reg_foret$surface_reg *100,1)
-
-# Afficher la structure des données
-str(reg_foret)
 
 ```
 
@@ -301,29 +252,7 @@ mf_credits("Source: IGN, 2024")
 > `📝` Qu’observez-vous sur la répartition du taux de boisement à différentes échelles d’agrégation ?
 
 ```{r}
-# Charger le package mapsf pour la création des cartes
-library(mapsf)
 
-mf_theme("dark")
-mf_shadow(epci_foret, col = "grey50", cex = 0.3)
-
-# Créer un fond pour la carte en utilisant la fonction mf_map()
-mf_map(x = epci_foret, 
-       var = "txbois", 
-       type = "choro",
-       breaks = "fisher",
-       nbreaks = 5,
-       leg_pos = "left",
-       leg_title = "Taux de boisement\n(en %)",
-       leg_val_rnd = 1,
-       border = "grey30",
-       lwd = 0.2,
-       #expandBB = c(0, -0.3, 0, -0.6),
-       add = TRUE
-       )
-
-mf_title("Taux de boisement par EPCI en 2024")
-mf_credits("Source: IGN, 2024")
 
 ```
 
@@ -331,77 +260,21 @@ mf_credits("Source: IGN, 2024")
 
 ```{r}
 
-mf_theme("dark")
-mf_shadow(dep_foret, col = "grey50", cex = 0.3)
-
-# Créer un fond pour la carte en utilisant la fonction mf_map()
-mf_map(x = dep_foret, 
-       var = "txbois", 
-       type = "choro",
-       breaks = "fisher",
-       nbreaks = 5,
-       leg_pos = "left",
-       leg_title = "Taux de boisement\n(en %)",
-       leg_val_rnd = 1,
-       border = "grey30",
-       lwd = 0.2,
-       #expandBB = c(0, -0.3, 0, -0.6),
-       add = TRUE
-       )
-
-mf_title("Taux de boisement par départements en 2024")
-mf_credits("Source: IGN, 2024")
 
 ```
 
 ### Carte par Anciennes régions
 
 ```{r}
-mf_theme("dark")
-mf_shadow(oldreg_foret, col = "grey50", cex = 0.3)
 
-# Créer un fond pour la carte en utilisant la fonction mf_map()
-mf_map(x = oldreg_foret, 
-       var = "txbois", 
-       type = "choro",
-       breaks = "fisher",
-       nbreaks = 5,
-       leg_pos = "left",
-       leg_title = "Taux de boisement\n(en %)",
-       leg_val_rnd = 1,
-       border = "grey30",
-       lwd = 0.2,
-       #expandBB = c(0, -0.3, 0, -0.6),
-       add = TRUE
-       )
 
-mf_title("Taux de boisement par anciennes régions en 2024")
-mf_credits("Source: IGN, 2024")
 ```
 
 ### Carte par Nouvelles régions
 
 ```{r}
-mf_theme("dark")
-mf_shadow(reg_foret, col = "grey50", cex = 0.3)
 
-# Créer un fond pour la carte en utilisant la fonction mf_map()
-mf_map(x = reg_foret, 
-       var = "txbois", 
-       type = "choro",
-       breaks = "fisher",
-       nbreaks = 5,
-       leg_pos = "left",
-       leg_title = "Taux de boisement\n(en %)",
-       leg_val_rnd = 1,
-       border = "grey30",
-       lwd = 0.2,
-       #expandBB = c(0, -0.3, 0, -0.6),
-       add = TRUE
-       )
 
-mf_title("Taux de boisement par régions en 2024")
-mf_credits("Source: IGN, 2024")
 ```
 
 ## 3.3 Analyse univariée
@@ -414,24 +287,17 @@ En utilisant les acquis des cours précédents, réaliser l'analyse univariée d
 
 > `📝` Que constatez-vous ?
 
-
 ### EPCI
 
 ```{r}
 
-summary(epci_foret$txbois)
-
-sd(epci_foret$txbois)
-
-boxplot(epci_foret$txbois, 
-        main = "Taux de boisement par EPCI", 
-        ylab = "Taux de boisement (%)")
 
 ```
 
 ### Départements
 
 ```{r}
+
 
 ```
 
@@ -445,85 +311,9 @@ boxplot(epci_foret$txbois,
 
 ```{r}
 
-```
-
-### Comparaisons
-
-```{r}
-# Charger les données en format long avec `stack` 
-df_txbois_long <- stack(list(
-  Communes = com_foret$txbois,
-  EPCI = epci_foret$txbois,
-  Departements = dep_foret$txbois,
-  Anciennes_regions = oldreg_foret$txbois,
-  Nouvelles_regions = reg_foret$txbois
-))
-
-# Renommer les colonnes pour plus de clarté
-colnames(df_txbois_long) <- c("txbois", "Maillage")
-
-# Calculer les valeurs centrales pour chaque maillage
-mean_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, mean, na.rm = TRUE)
-median_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, median, na.rm = TRUE)
-sd_vals <- tapply(df_txbois_long$txbois, df_txbois_long$Maillage, sd, na.rm = TRUE)
-
-# Créer un dataframe pour résumer les valeurs centrales
-df_summary <- data.frame(
-  Maillage = names(mean_vals),
-  Moyenne = mean_vals,
-  Mediane = median_vals,
-  Ecart_type = sd_vals
-)
-
-print(df_summary)
-```
-
-Boxplots
-```{r}
-# Créer les boxplots avec ggplot2
-
-library(ggplot2)
-
-ggplot(df_txbois_long, aes(x = Maillage, y = txbois, fill = Maillage)) +
-  geom_boxplot() +
-  labs(
-    title = "Comparaison du taux de boisement selon le maillage",
-    x = "Maillage",
-    y = "Taux de boisement (%)"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "none") 
 
 ```
 
-
-Scatter
-```{r}
-
-com_foret_df <- st_drop_geometry(com_foret)
-
-taux_boisement_dept <- com_foret_df %>%
-  dplyr::group_by(insee_dep) %>%
-  dplyr::summarise(txbois_moyen = mean(txbois, na.rm = TRUE))
-
-communes <- com_foret_df %>%
-  dplyr::left_join(taux_boisement_dept, by = "insee_dep")
-
-ggplot(communes, aes(x = txbois, y = txbois_moyen)) +
-  geom_point(alpha = 0.5) +
-  labs(
-    title = "Comparaison des taux de boisement entre échelles communale et départementale",
-    x = "Taux de boisement - Échelle communale",
-    y = "Taux de boisement - Échelle départementale"
-  ) 
-
-```
-
-### Correction :
-
--   des variations dans les valeurs centrales : Les moyennes et médianes du taux de boisement peuvent différer selon le maillage utilisé, illustrant l'influence du choix de l'unité spatiale sur les statistiques descriptives.
-
--   Une diminution de la dispersion avec l'augmentation de l'échelle : Les écarts-types et l'étendue des boxplots seront généralement plus importants pour les maillages fins (EPCI) et diminueront progressivement avec l'augmentation de l'échelle (Nouvelles régions). Cela s'explique par le phénomène d'agrégation : en regroupant les données sur des zones plus vastes, on lisse les variations locales.
 
 ## 3.4 - Aggrégation des résultats à partir des différents maillage
 
@@ -539,24 +329,7 @@ ggplot(communes, aes(x = txbois, y = txbois_moyen)) +
 
 ```{r}
 
-library(dplyr)
 
-
-# Conversion de sf à data.frame sans géométrie
-com_foret_df <- st_drop_geometry(com_foret)
-
-# Agrégation des données par région (insee_reg)
-reg_foret_reconstruit <- com_foret_df %>%
-  group_by(code = insee_reg) %>%
-  summarise(
-    surface_reg = sum(surface_com, na.rm = TRUE),
-    surface_foret = sum(surface_foret, na.rm = TRUE),
-    txbois_moyen = mean(txbois, na.rm = TRUE)
-  )
-
-reg_foret_reconstruit$txbois <- round(reg_foret_reconstruit$surface_foret / reg_foret_reconstruit$surface_reg *100,1)
-
-reg_foret_reconstruit
 ```
 
 ------------------------------------------------------------------------
@@ -604,11 +377,11 @@ Le **lissage spatial** est une méthode d'estimation non paramétrique de la fon
 
 Dans cet exemple, les médecins généralistes sont géocodés à l'adresse exacte. Ils auraient pu être localisés dans un maillage, mais il est préférable d'avoir leur localisation exacte à cette échelle.
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_point_gp.png)
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_point_gp.png)
 
 Sur la zone d'étude, on applique un Kernel Density Estimator (KDE) de bandwith 200m et avec une fonction gaussienne dans le kernel.
 
-![](~/florian/Dropbox/Fac/ENSG/ENSG_IGAST/assets/images/MAUP_kde_gp.png "Two dimensionals KDE with an estimator bandwidth of 0.2")
+![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_kde_gp.png "Two dimensionals KDE with an estimator bandwidth of 0.2")
 
 Le **lissage géographique** s'inspire du lissage spatial pour obtenir des représentations cartographiques simplifiées.
 

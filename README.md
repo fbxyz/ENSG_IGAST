@@ -36,7 +36,8 @@ Objectifs spécifiques pour la section MAUP:
 - [PDF](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2_IGAST_cours_discretisation.pdf)
 
 ### MAUP (3 heures)
-   - A venir
+- [RMD](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_MAUP.Rmd)
+- [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/pdf/M2IGAST_MAUP.html)
 
 ## Travaux Dirigés (TD) 
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_TD.html)
