@@ -37,7 +37,7 @@ Objectifs spécifiques pour la section MAUP:
 
 ### MAUP (3 heures)
 Ce cours et TD est à ouvrir dans Rstudio (fichier RMD)
-- [RMD](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_MAUP.Rmd)
+- [RMD](https://github.com/fbxyz/ENSG_IGAST/blob/master/M2IGAST_MAUP.Rmd)
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/refs/heads/master/M2IGAST_MAUP.html)
 
 ## Travaux Dirigés (TD) 
