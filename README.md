@@ -39,6 +39,7 @@ Objectifs spécifiques pour la section MAUP:
 Ce cours et TD est à ouvrir dans Rstudio (fichier RMD)
 - [RMD](https://github.com/fbxyz/ENSG_IGAST/blob/master/M2IGAST_MAUP.Rmd)
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/refs/heads/master/M2IGAST_MAUP.html)
+- [Correction](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_MAUP_CORR.html)
 
 ## Travaux Dirigés (TD) 
 - [HTML](https://raw.githack.com/fbxyz/ENSG_IGAST/master/M2IGAST_TD.html)
