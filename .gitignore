@@ -1,6 +1,7 @@
 /insee.ipynb
 /__init__.py
 /data/geo.sqlite
+/data/data_dst.csv
 /assets/images/
 /assets/images/1_Message/
 /.ipynb_checkpoints/
@@ -11,3 +12,4 @@
 /M2IGAST_MAUP_CORR.Rmd
 /M2IGAST_MAUP_CORR.html
 /DST.pdf
+/prepa_data_DST.Rmd

@@ -48,9 +48,9 @@ Le MAUP survient lorsque les résultats de l'analyse sont influencés par la man
 
 ### 2.2.1 - Effet de zonage :
 
-L'effet de zonage décrit la variation des statistiques causée par le regroupement des données en différentes configurations à la même échelle. Il s'agit de la forme des unités spatiales qui est modifiée, tout en gardant une superficie constante.
+L'effet de zonage décrit la variation des statistiques causée par le regroupement des données en différentes configurations à la même échelle. Il s'agit de la forme des unités spatiales qui est modifiée.
 
-Par exemple, si l'on divise un territoire en zones de formes différentes (carrées, rectangulaires, circulaires), les résultats d'une analyse statistique portant sur la densité de population ou le taux de criminalité peuvent varier considérablement, même si la superficie totale de chaque zone est la même.
+Par exemple, si l'on divise un territoire en zones de formes différentes (carrées, rectangulaires, circulaires), les résultats d'une analyse statistique portant sur la densité de population ou le taux de criminalité peuvent varier considérablement.
 
 ![](https://raw.githubusercontent.com/fbxyz/ENSG_IGAST/refs/heads/master/assets/img/MAUP_point_grid.png)
 
@@ -76,10 +76,13 @@ A noter que le MAUP va aussi avoir des effets sur vos analyses de corrélation :
 | Jeunes        | 81       | 9        | 90    | (10%)        |
 | Vieux         | 9        | 1        | 10    | (10%)        |
 | **Total**     | 90       | 10       | 100   | (10%)        |
+|               |          |          |       |              |
 | **Zone B**    |          |          |       |              |
 | Jeunes        | 40       | 10       | 50    | (20%)        |
 | Vieux         | 40       | 10       | 50    | (20%)        |
-| **Zones A+B** | 80       | 20       | 100   | (20%)        |
+| **Total**     | 80       | 20       | 100   | (20%)        |
+|               |          |          |       |              |
+| **Zone A+B**  |          |          |       |              |
 | Jeunes        | 121      | 19       | 140   | (13.6%)      |
 | Vieux         | 49       | 11       | 60    | (18.3%)      |
 | ***Total***   | *170*    | *30*     | *200* | *(15%)*      |
@@ -90,6 +93,7 @@ A noter que le MAUP va aussi avoir des effets sur vos analyses de corrélation :
 -   Les zones A et B ont chacune une population totale de 100 personnes.
 -   Dans la zone A, 10% de jeunes et 10% de vieux sont au chômage.
 -   Dans la zone B, 20% de jeunes et 20% de vieux sont au chômage.
+-   La part des chômeurs est donc la même dans les deux zones.
 
 ### 2.3.2 - Biais :
 
@@ -100,7 +104,7 @@ Si l'on combine les zones A et B, on pourrait s'attendre à ce que le taux de ch
 
 ### Explication du biais :
 
-Ce résultat inattendu est dû à la différence de la taille des populations de chaque groupe ethnique dans les zones A et B.
+Ce résultat inattendu est dû à la différence de la taille des populations de chaque groupe dans les zones A et B.
 
 -   La zone A a une population jeunes beaucoup plus importante que la population âgée.
 -   La zone B a des populations jeunes et âgées égales.
@@ -113,7 +117,11 @@ Cet exemple illustre l'effet d'échelle du MAUP : le choix de l'unité spatiale 
 
 Le Gerrymandering est une pratique qui consiste à manipuler les frontières des circonscriptions électorales afin de favoriser un parti politique ou un groupe particulier.
 
-Cette manipulation peut prendre différentes formes, notamment: - Concentrer les électeurs d'un parti adverse dans un petit nombre de districts afin de réduire leur influence dans les autres districts. - Disperser les électeurs d'un parti adverse dans plusieurs districts afin de les empêcher d'obtenir une majorité dans aucun d'entre eux. - Créer des districts de formes bizarres et non compactes pour regrouper les électeurs favorables à un parti donné.
+Cette manipulation peut prendre différentes formes, notamment: 
+
+- Concentrer les électeurs d'un parti adverse dans un petit nombre de districts afin de réduire leur influence dans les autres districts. 
+- Disperser les électeurs d'un parti adverse dans plusieurs districts afin de les empêcher d'obtenir une majorité dans aucun d'entre eux. 
+- Créer des districts de formes bizarres et non compactes pour regrouper les électeurs favorables à un parti donné.
 
 ### 2.4.1 - Dans le principe :
 
@@ -138,6 +146,8 @@ Nous allons maintenant illustrer le phénomène du MAUP en reprenant le jeu de d
 > `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
 
 ```{r}
+# On utilise la librairie Simple Features pour charger des géométries dans un dataframe
+# https://r-spatial.github.io/sf/
 library(sf)
 
 # Chemin vers les données EPCI
@@ -145,6 +155,8 @@ url_com <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_COM_FORET_3
 
 # Charger le fichier GeoJSON des EPCI
 com_foret <- st_read(url_com)
+
+# On change la projection
 com_foret <- st_transform(com_foret, crs = 2154)
 
 ```
@@ -156,7 +168,6 @@ com_foret <- st_transform(com_foret, crs = 2154)
 > `📝` Calculez le taux de boisement dans une nouvelle colonne *txbois* du dataframe
 
 ```{r}
-library(sf)
 
 # Chemin vers les données EPCI
 url_epci <- "https://github.com/fbxyz/ENSG_IGAST/raw/master/data/MAUP_EPCI_FORET_3857.geojson" 
@@ -216,6 +227,7 @@ La première carte à la commune est montrée en exemple
 
 ```{r}
 # Charger le package mapsf pour la création des cartes
+# https://riatelab.github.io/mapsf/
 library(mapsf)
 
 mf_theme("dark")
@@ -245,7 +257,7 @@ mf_credits("Source: IGN, 2024")
 
 > `📝` En vous aidant de l'exemple précédent, cartographiez le taux de boisement pour les EPCI, les départements, les anciennes régions et les nouvelles régions.
 
-> `📝` Appliquez vos connaissances sur la discrétisation pour rendre les cartes comparables
+> `📝` Appliquez vos connaissances sur la discrétisation pour un rendu efficace
 
 > `📝` Consultez l'aide de mapsf si besoin : <https://riatelab.github.io/mapsf/reference/mf_get_breaks.html>
 
